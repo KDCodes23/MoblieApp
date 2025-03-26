@@ -1,5 +1,6 @@
 package com.assignment2.movieApp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +20,7 @@ class MovieViewModel : ViewModel() {
     val movieDetails: LiveData<Movie?> get() = _movieDetails
 
     fun searchMovies(query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        /*viewModelScope.launch(Dispatchers.IO) {
             val response = MovieApiClient.searchMovies(query)
             response?.let {
                 val jsonObject = JSONObject(it)
@@ -43,6 +44,43 @@ class MovieViewModel : ViewModel() {
                 }
                 _movies.postValue(movieList)
             }
+        } */
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = MovieApiClient.searchMovies(query)
+                Log.d("SearchMovies", "API Response: $response")
+                response?.let {
+                    val jsonObject = JSONObject(it)
+                    val error = jsonObject.optString("Error")
+                    if (error.isNotEmpty()) {
+                        Log.e("SearchMovies", "API Error: $error")
+                        return@launch
+                    }
+                    val jsonArray = jsonObject.optJSONArray("Search")
+                    val movieList = mutableListOf<Movie>()
+
+                    if (jsonArray != null) {
+                        for (i in 0 until jsonArray.length()) {
+                            val item = jsonArray.getJSONObject(i)
+                            movieList.add(
+                                Movie(
+                                    title = item.optString("Title"),
+                                    year = item.optString("Year"),
+                                    imdbID = item.optString("imdbID"),
+                                    type = item.optString("Type"),
+                                    poster = item.optString("Poster"),
+                                    rated = item.optString("Rated")
+                                )
+                            )
+                        }
+                    }
+                    Log.d("SearchMovies", "Parsed Movies: $movieList")
+                    _movies.postValue(movieList)
+                }
+            } catch (e: Exception) {
+                Log.e("SearchMovies", "Error parsing movies: ${e.message}")
+            }
         }
     }
 
@@ -64,3 +102,4 @@ class MovieViewModel : ViewModel() {
         }
     }
 }
+
