@@ -1,5 +1,6 @@
 package com.assignment2.movieApp.view
 
+import MovieDetailsActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -50,6 +51,7 @@ class MovieSearchActivity : AppCompatActivity() {
 
         // Observe Movies
         viewModel.movies.observe(this) { movies ->
+            Log.d("MainActivity", "Updating movies: $movies")
             movieAdapter.updateMovies(movies)
         }
     }

@@ -1,5 +1,6 @@
 package com.assignment2.movieApp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,11 +9,13 @@ import com.assignment2.movieApp.databinding.ItemMovieBinding
 import com.assignment2.movieApp.model.Movie
 
 class MovieAdapter(
-    private val movies: List<Movie>,
+    private var movies: List<Movie>,
     private val onItemClick: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    fun updateMovies(movies: List<Movie>) {
 
+    fun updateMovies(newMovies: List<Movie>) {
+        Log.d("MovieAdapter", "Updating movies: $newMovies")
+        this.movies = newMovies
         notifyDataSetChanged()  // Notify the RecyclerView of the data change
     }
     inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
