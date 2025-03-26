@@ -14,10 +14,12 @@ import com.assignment2.movieApp.network.MovieApiClient
 class MovieViewModel : ViewModel() {
     private val _movies = MutableLiveData<List<Movie>>()
     val movieDetailsLiveData = MutableLiveData<Movie>()
+
     val movies: LiveData<List<Movie>> get() = _movies
 
     private val _movieDetails = MutableLiveData<Movie?>()
     val movieDetails: LiveData<Movie?> get() = _movieDetails
+
 
     fun searchMovies(query: String) {
         /*viewModelScope.launch(Dispatchers.IO) {
@@ -26,6 +28,7 @@ class MovieViewModel : ViewModel() {
                 val jsonObject = JSONObject(it)
                 val jsonArray = jsonObject.optJSONArray("Search")
                 val movieList = mutableListOf<Movie>()
+
 
                 if (jsonArray != null) {
                     for (i in 0 until jsonArray.length()) {

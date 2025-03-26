@@ -7,8 +7,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 object MovieApiClient {
-    //private const val BASE_URL = "omdbapi.com/?apikey="
-    private const val BASE_URL = "https://www.omdbapi.com/"
+    private const val BASE_URL = "omdbapi.com/?apikey="
     private const val API_KEY = "afdecc7a"
 
     fun searchMovies(query: String): String? {
