@@ -1,5 +1,6 @@
 package com.assignment2.movieApp.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +24,9 @@ class MovieSearchActivity : AppCompatActivity() {
 
         // Setup RecyclerView
         movieAdapter = MovieAdapter(emptyList()) { selectedMovie ->
-
+            val intent = Intent(this@MovieSearchActivity, MovieDetailsActivity::class.java)
+            intent.putExtra("MOVIE_ID", selectedMovie.imdbID)
+            startActivity(intent)
         }
         binding.recyclerViewMovies.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewMovies.adapter = movieAdapter
