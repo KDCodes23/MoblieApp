@@ -76,6 +76,7 @@ class MovieViewModel : ViewModel() {
                         }
                     }
                     Log.d("SearchMovies", "Parsed Movies: $movieList")
+
                     _movies.postValue(movieList)
                 }
             } catch (e: Exception) {
