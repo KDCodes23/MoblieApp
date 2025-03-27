@@ -46,8 +46,8 @@ class MovieViewModel : ViewModel() {
                                     type = item.optString("Type"),
                                     poster = item.optString("Poster"),
                                     rated = item.optString("Rated"),
-                                    imdbRating = item.optString("imdbRating"),
-                                    studio = jsonObject.optString("Production")
+                                    imdbRating = item.optString("imdbRating").takeIf { it.isNotEmpty() } ?: "N/A",
+                                    studio = item.optString("Production").takeIf { it.isNotEmpty() } ?: "Unknown"
                                 )
                             )
                         }
@@ -74,8 +74,8 @@ class MovieViewModel : ViewModel() {
                     poster = jsonObject.optString("Poster"),
                     plot = jsonObject.optString("Plot"),
                     rated = jsonObject.optString("Rated"),
-                    imdbRating = jsonObject.optString("imdbRating"),
-                    studio = jsonObject.optString("Production")
+                    imdbRating = jsonObject.optString("imdbRating").takeIf { it.isNotEmpty() } ?: "N/A",
+                    studio = jsonObject.optString("Production").takeIf { it.isNotEmpty() } ?: "Unknown"
                 )
                 _movieDetails.postValue(movie)
             }

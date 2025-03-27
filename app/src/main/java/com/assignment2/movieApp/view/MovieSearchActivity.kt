@@ -42,7 +42,6 @@ class MovieSearchActivity : AppCompatActivity() {
 
         // Observe Movies
         viewModel.movies.observe(this) { movies ->
-            Log.d("MovieSearchActivity", "Movies: $movies")
             movieAdapter.updateMovies(movies)
         }
     }
