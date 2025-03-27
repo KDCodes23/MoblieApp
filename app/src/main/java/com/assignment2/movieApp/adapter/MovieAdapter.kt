@@ -1,5 +1,6 @@
 package com.assignment2.movieApp.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,21 +14,24 @@ class MovieAdapter(
     private val onItemClick: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateMovies(newMovies: List<Movie>) {
-        Log.d("MovieAdapter", "Updating movies: $newMovies")
         this.movies = newMovies
         notifyDataSetChanged()  // Notify the RecyclerView of the data change
     }
     inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             binding.apply {
                 tvMovieTitle.text = movie.title
-                tvMovieYear.text = movie.year
+                tvMovieYear.text = "Year: ${movie.year}"
+                tvMovieImdbRating.text = "IMDB Rating: ${movie.imdbRating ?: "N/A"}"
+                tvMovieStudio.text = "Studio: ${movie.studio ?: "Unknown"}"
 
                 // Load poster image
                 Glide.with(itemView.context)
-                    .load(movie.poster)  // `movie.poster` should contain the URL to the image
-                    .into(binding.ivMoviePoster)  // Reference to your ImageView
+                    .load(movie.poster)
+                    .into(ivMoviePoster)
 
                 // Set click listener
                 root.setOnClickListener { onItemClick(movie) }

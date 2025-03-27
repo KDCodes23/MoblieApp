@@ -1,10 +1,9 @@
 package com.assignment2.movieApp.view
 
-import MovieDetailsActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+//import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,19 +38,11 @@ class MovieSearchActivity : AppCompatActivity() {
             Log.d("SearchButton", "Search button was clicked!")
             val query = binding.etSearchMovie.text.toString()
             viewModel.searchMovies(query)
-
-            /*val query = binding.etSearchMovie.text.toString().trim()
-            if (query.isNotEmpty()) {
-                Log.d("SearchQuery", "Query: $query") // Add this line for debugging
-                viewModel.searchMovies(query)
-            } else {
-                Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show()
-            } */
         }
 
         // Observe Movies
         viewModel.movies.observe(this) { movies ->
-            Log.d("MainActivity", "Updating movies: $movies")
+            Log.d("MovieSearchActivity", "Movies: $movies")
             movieAdapter.updateMovies(movies)
         }
     }

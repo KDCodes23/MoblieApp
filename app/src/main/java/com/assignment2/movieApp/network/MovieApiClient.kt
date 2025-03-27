@@ -11,15 +11,11 @@ object MovieApiClient {
     private const val API_KEY = "afdecc7a"
 
     fun searchMovies(query: String): String? {
-        //val urlString = "$BASE_URL?apikey=$API_KEY&s=$query"
-
-        //https://www.omdbapi.com/?t=Forrest+Gump&apikey=afdecc7a
-        val urlString = "$BASE_URL?s=$query&apikey=$API_KEY"
+        val urlString = "$BASE_URL?s=$query&apikey=$API_KEY&i="
         return makeRequest(urlString)
     }
 
     fun getMovieDetails(imdbId: String): String? {
-        //val urlString = "$BASE_URL?apikey=$API_KEY&i=$imdbId"
         val urlString = "$BASE_URL?i=$imdbId&apikey=$API_KEY"
         return makeRequest(urlString)
     }
